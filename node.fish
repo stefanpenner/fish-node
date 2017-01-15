@@ -1,5 +1,5 @@
-set FISH_NODE_ROOT $HOME/.config/node
-set FISH_NODE_REMOTE "https://nodejs.org/download/release"
+set -g FISH_NODE_ROOT $HOME/.config/node
+set -g FISH_NODE_REMOTE "https://nodejs.org/download/release"
 
 function node-setup
   mkdir -p $FISH_NODE_ROOT/{versions,default,tarballs,checksums,cache}
