@@ -38,7 +38,7 @@ function node-install -a input_version
   set -l _version (node-version-match $input_version)
 
   if test -s $_version
-    echo-failure "no such version: $input_version"
+    __echo-failure "no such version: $input_version"
     return 1
   end
 
@@ -55,7 +55,7 @@ function node-install -a input_version
     curl --fail --progress "$FISH_NODE_REMOTE/$_version/$filename" > "$tarball"
   end
 
-  echo-success "downloaded"
+  __echo-success "downloaded"
 
   if not test -e $shasumText
     echo "$FISH_NODE_REMOTE/$_version/SHASUMS256.txt"
@@ -64,24 +64,23 @@ function node-install -a input_version
 
   fish -c "cd $FISH_NODE_ROOT/tarballs/; and cat $shasumText | grep $filename | shasum -c - > /dev/null"
 
-  echo-success "verified"
+  __echo-success "verified"
 
   if not test -e $target
     tar -C "$FISH_NODE_ROOT/versions"/ -zxf "$FISH_NODE_ROOT/tarballs/$filename"
   end
 
-  echo-success "installed"
+  __echo-success "installed"
 end
 
-function echo-success -a message
-
+function __echo-success -a message
   set_color green;
   printf "  ✓ ";
   set_color normal;
   echo "$message";
 end
 
-function echo-failure -a message
+function __echo-failure -a message
   set_color red;
   printf "  ✗ ";
   set_color normal;
@@ -94,9 +93,9 @@ function node-set -a input_version
 
   if test -e "$FISH_NODE_ROOT/versions/$filename"
     set -gx PATH "$FISH_NODE_ROOT/versions/$filename" $PATH
-    echo-success "node.current = $_version"
+    __echo-success "node.current = $_version"
   else
-    echo-failure  "node.current = $_version; not installed"
+    __echo-failure  "node.current = $_version; not installed"
   end
 end
 
@@ -110,9 +109,9 @@ function node-set-global -a input_version
     ln -s "$FISH_NODE_ROOT/versions/$filename" $target
     set -gx PATH "$FISH_NODE_ROOT/versions/$filename" $PATH
 
-    echo-success "node.global = $_version"
+    __echo-success "node.global = $_version"
   else
-    echo-failure  "node.current = $_version; not installed"
+    __echo-failure  "node.current = $_version; not installed"
   end
 end
 
