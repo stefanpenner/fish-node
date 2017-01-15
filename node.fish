@@ -21,8 +21,7 @@ end
 
 set _node_current_platform (_get_node_current_platform)
 
-function node-uninstall
-  set -l _version $argv[1]
+function node-uninstall -a _version
   set -l filename node-$_version-$_node_current_platform.tar.gz
   set -l tarball $FISH_NODE_ROOT/tarballs/$filename
   set -l target $FISH_NODE_ROOT/versions/node-$_version-$_node_current_platform/
@@ -35,8 +34,7 @@ function node-get
   node-install $argv
 end
 
-function node-install
-  set -l input_version $argv[1]
+function node-install -a input_version
   set -l _version (node-version-match $input_version)
 
   if test -s $_version
@@ -75,8 +73,7 @@ function node-install
   echo-success "installed"
 end
 
-function echo-success
-  set -l message $argv[1]
+function echo-success -a message
 
   set_color green;
   printf "  ✓ ";
@@ -84,18 +81,15 @@ function echo-success
   echo "$message";
 end
 
-function echo-failure
-  set -l message $argv[1]
-
+function echo-failure -a message
   set_color red;
   printf "  ✗ ";
   set_color normal;
   echo "$message"
 end
 
-function node-set
-  set -l input_version $argv[1]
-  set -l _version (node-version-match $input_version)
+function node-set -a input_version
+  set -l _version (node-version-match "$input_version")
   set -l filename "node-$_version-$_node_current_platform/bin"
 
   if test -e "$FISH_NODE_ROOT/versions/$filename"
@@ -106,9 +100,8 @@ function node-set
   end
 end
 
-function node-set-global
-  set -l input_version $argv[1]
-  set -l _version (node-version-match $input_version)
+function node-set-global -a input_version
+  set -l _version (node-version-match "$input_version")
   set -l filename "node-$_version-$_node_current_platform/bin"
   set -l target  "$FISH_NODE_ROOT/default/bin"
 
@@ -123,16 +116,14 @@ function node-set-global
   end
 end
 
-function node-ls
-  set -l _version "$argv[1]"
-  for node in (ls "$FISH_NODE_ROOT/versions" | grep $_version)
+function node-ls -a _version
+  for node in (ls "$FISH_NODE_ROOT/versions" | grep "$_version")
     echo $node | cut -d '-' -f 2
   end
 end
 
-function node-version-match
-  set -l _version "$argv[1]"
-  node-ls-remote | grep $_version | sort | tail -n 1
+function node-version-match -a _version
+  node-ls-remote $_version | sort | tail -n 1
 end
 
 function node-ls-remote-refresh
@@ -140,8 +131,7 @@ function node-ls-remote-refresh
   node-ls-remote
 end
 
-function node-ls-remote
-  set -l _version "$argv[1]"
+function node-ls-remote -a _version
   if not test -e $FISH_NODE_ROOT/cache/versions.json
     curl https://nodejs.org/download/release/index.json 2> /dev/null > $FISH_NODE_ROOT/cache/versions.json
   else
