@@ -137,7 +137,7 @@ function node-ls-remote -a _version
 
   end
 
-  cat $FISH_NODE_ROOT/cache/versions.json | jq -r '.[].version' | grep $_version
+  cat $FISH_NODE_ROOT/cache/versions.json | jq -r '.[].version' | grep "$_version"
 end
 
 node-setup
