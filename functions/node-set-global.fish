@@ -6,7 +6,6 @@ function node-set-global -a input_version
   if test -e "$FISH_NODE_ROOT/versions/$filename"
     rm -rf $target
     ln -s "$FISH_NODE_ROOT/versions/$filename" $target
-    set -gx PATH "$FISH_NODE_ROOT/versions/$filename" $PATH
 
     __echo-success "node.global = $_version"
   else
