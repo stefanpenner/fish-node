@@ -28,7 +28,7 @@ end
 
 node-setup
 
-if test -f $HOME/.config/node/default/bin
+if test -d $HOME/.config/node/default/bin
   set -gx PATH $HOME/.config/node/default/bin $PATH
 end
 
