@@ -33,4 +33,6 @@ if test -d $HOME/.config/node/default/bin
 end
 
 # enable global yarn bins
-set -gx PATH $HOME/.yarn-config/global/node_modules/.bin $PATH
+if test -d $HOME/.yarn-config/global/node_modules/.bin
+  set -gx PATH $HOME/.yarn-config/global/node_modules/.bin $PATH
+end
