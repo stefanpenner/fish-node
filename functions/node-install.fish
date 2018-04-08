@@ -8,7 +8,6 @@ function node-install -a input_version
 
   echo " installing: node.version = $_version"
 
-  set -l arch (uname -sm)
   set -l filename "node-$_version-$_node_current_platform.tar.gz"
   set -l tarball "$FISH_NODE_ROOT/tarballs/$filename"
   set -l target "$FISH_NODE_ROOT/versions/node-$_version-$_node_current_platform/"
