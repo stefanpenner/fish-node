@@ -1,1 +1,1 @@
-complete --command node-set --arguments "(node-ls-remote)" --no-files --require-parameter
+complete --command node-set --arguments "(node-ls-remote)" --keep-order --no-files --require-parameter

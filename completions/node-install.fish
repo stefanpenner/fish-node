@@ -1,1 +1,1 @@
-complete --command node-install --arguments "(node-ls-remote)" --no-files --require-parameter
+complete --command node-install --arguments "(node-ls-remote)" --keep-order --no-files --require-parameter
