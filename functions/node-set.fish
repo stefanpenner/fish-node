@@ -15,6 +15,13 @@ function node-set -a input_version
     set -gx LAST_NODE_SET $fullpath
     __echo-success "node.current = $_version"
   else
+    node-get $input_version
+    if test -e "$FISH_NODE_ROOT/versions/$filename"
+      set -gx PATH $fullpath $PATH
+      set -gx LAST_NODE_SET $fullpath
+      __echo-success "node.current = $_version"
+    else
     __echo-failure  "node.current = $_version; not installed"
+    end
   end
 end
